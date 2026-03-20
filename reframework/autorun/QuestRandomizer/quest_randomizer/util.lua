@@ -1,5 +1,6 @@
 local config = require("QuestRandomizer.config.init")
 local data = require("QuestRandomizer.data.init")
+local quest_base = require("QuestRandomizer.data.quest_base")
 local quest_reference = require("QuestRandomizer.quest_randomizer.quest_reference")
 local randomizer = require("QuestRandomizer.quest_randomizer.randomizer")
 local s = require("QuestRandomizer.util.ref.singletons")
@@ -94,7 +95,9 @@ function this.do_mod_action()
 
             if quest then
                 util_mod.post_quest(quest, config_mod.quest_start_type)
-                mod.map.posted_quests:set(quest.key, true)
+                if quest.type ~= quest_base.enum_type.INSTANT then
+                    mod.map.posted_quests:set(quest.key, true)
+                end
             elseif util_table.empty(ace_map.quests) then
                 util_mod.send_message(config.lang:tr("mod.text_no_quest"))
             else
