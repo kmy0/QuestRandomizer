@@ -54,12 +54,15 @@ function this.filter_quests(filter_type)
     end
 
     local config_mod = config.current.mod
-    ---@diagnostic disable-next-line: invisible
-    for k in pairs(mod_map.custom_quest_list._map) do
-        if not ace_map.quests[k] then
-            mod_map.custom_quest_list:set(k, nil)
+
+    mod_map.custom_quest_list:with_dump(function()
+        ---@diagnostic disable-next-line: invisible
+        for k in pairs(mod_map.custom_quest_list._map) do
+            if not ace_map.quests[k] then
+                mod_map.custom_quest_list:set(k, nil)
+            end
         end
-    end
+    end)
 
     local quest_filter =
         util_mod.make_quest_filter(mod_map.posted_quests, mod_map.custom_quest_list)
