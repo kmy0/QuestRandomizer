@@ -64,6 +64,15 @@ function this.filter_quests(filter_type)
         end
     end)
 
+    mod_map.posted_quests:with_dump(function()
+        ---@diagnostic disable-next-line: invisible
+        for k in pairs(mod_map.posted_quests._map) do
+            if not ace_map.quests[k] then
+                mod_map.posted_quests:set(k, nil)
+            end
+        end
+    end)
+
     local quest_filter =
         util_mod.make_quest_filter(mod_map.posted_quests, mod_map.custom_quest_list)
     for _, quest in pairs(ace_map.quests) do
