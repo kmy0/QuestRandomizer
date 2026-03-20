@@ -1,0 +1,32 @@
+---@meta
+
+---@class via.Language : System.Enum
+
+---@class ace.ACE_PAD_KEY.BITS : System.Enum
+---@class ace.ACE_MKB_KEY.INDEX : System.Enum
+---@class ace.GUIDef.INPUT_DEVICE : System.Enum
+
+---@class app.FieldDef.STAGE : System.Enum
+---@class app.QuestDef.EM_REWARD_RANK : System.Enum
+---@class app.MissionIDList.ID : System.Enum
+---@class app.QuestDef.RANK : System.Enum
+---@class app.EnemyDef.ID : System.Enum
+---@class app.EnemyDef.ROLE_ID : System.Enum
+---@class app.EnemyDef.LEGENDARY_ID : System.Enum
+---@class app.QuestDef.RANK : System.Enum
+---@class app.ItemDef.ID : System.Enum
+---@class app.EnemyDef.SPECIES : System.Enum
+---@class app.EnemyDef.SPECIES_Fixed : System.Enum
+---@class app.GimmickDef.ID : System.Enum
+---@class app.cStartPointInfo.START_POINT_TYPE : System.Enum
+---@class app.GUI050000.QUEST_TYPE : System.Enum
+---@class app.cGUIQuestOrderParam.QUEST_START_TYPE : System.Enum
+---@class app.net_context_manager.cContextManager.CONTEXT_STATE : System.Enum
+---@class app.net_quest_session.cCreateQuestSessionInfo.MULTIPLAY_SETTING : System.Enum
+---@class app.EnvironmentType.ENVIRONMENT : System.Enum
+---@class app.MissionTypeList.TYPE : System.Enum
+---@class app.QuestDef.QUEST_TARGET : System.Enum
+---@class app.GUIFlowQuestCounter.MODE : System.Enum
+---@class app.GUI060102.OPEN_FROM : System.Enum
+---@class app.GUI060102.OPEN_ANIMATION : System.Enum
+---@class app.net_session_manager.SESSION_TYPE : System.Enum
