@@ -51,10 +51,12 @@ function this.do_reload_quest_data()
     if mod.quest_reload & R.FULL == R.FULL then
         mod.quest_reload = R.NONE
         data.reload_quest_data()
+        this.clear_cache()
         this.filter_quests()
         return
     end
 
+    -- unused
     if mod.quest_reload & R.NORMAL == R.NORMAL then
         mod.quest_reload = mod.quest_reload & ~R.NORMAL
     end
@@ -68,6 +70,7 @@ function this.do_reload_quest_data()
     if mod.quest_reload & R.KEEP == R.KEEP then
         mod.quest_reload = mod.quest_reload & ~R.KEEP
         data.reload_keep_quest_data()
+        this.clear_cache()
         this.filter_quests(randomizer.filter_type.KEEP)
     end
 end
@@ -105,6 +108,25 @@ function this.do_mod_action()
             end
         end
     end
+end
+function this.clear_cache()
+    mod.map.custom_quest_list:with_dump(function()
+        ---@diagnostic disable-next-line: invisible
+        for k in pairs(mod.map.custom_quest_list._map) do
+            if not ace_map.quests[k] then
+                mod.map.custom_quest_list:set(k, nil)
+            end
+        end
+    end)
+
+    mod.map.posted_quests:with_dump(function()
+        ---@diagnostic disable-next-line: invisible
+        for k in pairs(mod.map.posted_quests._map) do
+            if not ace_map.quests[k] then
+                mod.map.posted_quests:set(k, nil)
+            end
+        end
+    end)
 end
 
 return this
