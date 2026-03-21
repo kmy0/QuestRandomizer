@@ -331,6 +331,7 @@ local function draw_quest_ref_menu()
             imgui.text(quest.level .. config.lang:tr("misc.text_star"))
             imgui.table_set_column_index(3)
 
+            imgui.begin_disabled(quest.type == quest.enum_type.INSTANT)
             if mod_map.custom_quest_list:get(quest.key) then
                 if imgui.button(util_gui.tr("menu.quest_ref.button_remove", tostring(row))) then
                     mod_map.custom_quest_list:set(quest.key, nil)
@@ -340,6 +341,7 @@ local function draw_quest_ref_menu()
                     mod_map.custom_quest_list:set(quest.key, true)
                 end
             end
+            imgui.end_disabled()
 
             imgui.table_set_column_index(4)
             if imgui.button(quest.key) then
