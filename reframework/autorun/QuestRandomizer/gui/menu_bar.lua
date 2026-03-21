@@ -85,17 +85,19 @@ local function draw_mod_menu()
 
     imgui.separator()
 
+    imgui.begin_disabled(not util_randomizer.reload_ok())
     if
         util_imgui.menu_item(util_gui.tr("menu.config.reload_quest_data"), nil, nil, true)
         and config.current.mod.enabled
     then
         util_randomizer.request_quest_reload(mod_enum.quest_reload.FULL)
     end
+    imgui.end_disabled()
 
     if util_imgui.menu_item(util_gui.tr("menu.config.reset"), nil, nil, true) then
         state.clear_disabled_items()
         config:restore()
-        util_randomizer.request_quest_reload(mod_enum.quest_reload.FULL)
+        util_randomizer.request_mod_action(mod_enum.mod_action.FILTER)
     end
 
     imgui.pop_style_var(1)

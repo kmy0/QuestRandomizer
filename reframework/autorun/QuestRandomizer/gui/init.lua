@@ -301,15 +301,18 @@ local function draw_top_menu()
     end
     util_imgui.tooltip(quest_name)
 
+    imgui.begin_disabled(not util_randomizer.post_ok())
     if imgui.button(util_gui.tr("mod.button_post")) then
         util_randomizer.request_mod_action(mod_enum.mod_action.POST)
     end
-
+    imgui.end_disabled()
     imgui.same_line()
 
+    imgui.begin_disabled(not util_randomizer.rand_ok())
     if imgui.button(util_gui.tr("mod.button_randomize")) then
         util_randomizer.request_mod_action(mod_enum.mod_action.ROLL)
     end
+    imgui.end_disabled()
 
     imgui.same_line()
     imgui.text(

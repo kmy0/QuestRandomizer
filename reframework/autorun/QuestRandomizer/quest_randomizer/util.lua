@@ -1,5 +1,6 @@
 local config = require("QuestRandomizer.config.init")
 local data = require("QuestRandomizer.data.init")
+local m = require("QuestRandomizer.util.ref.methods")
 local quest_base = require("QuestRandomizer.data.quest_base")
 local quest_reference = require("QuestRandomizer.quest_randomizer.quest_reference")
 local randomizer = require("QuestRandomizer.quest_randomizer.randomizer")
@@ -87,12 +88,14 @@ function this.do_mod_action()
 
     if mod.mod_action & A.ROLL == A.ROLL then
         mod.mod_action = mod.mod_action & ~A.ROLL
-        config.current.mod.quest_id = randomizer.roll() or ""
+        if this.rand_ok() then
+            config.current.mod.quest_id = randomizer.roll() or ""
+        end
     end
 
     if mod.mod_action & A.POST == A.POST then
         mod.mod_action = mod.mod_action & ~A.POST
-        if not s.get("app.MissionManager"):get_IsActiveQuest() then
+        if this.post_ok() then
             local config_mod = config.current.mod
             local quest = ace_map.quests[config_mod.quest_id]
 
@@ -109,6 +112,21 @@ function this.do_mod_action()
         end
     end
 end
+
+function this.post_ok()
+    return not s.get("app.MissionManager"):get_IsActiveQuest()
+        and s.get("app.GameFlowManager"):get_IsPlayableScene()
+        and m.canOpenStartMenu(false)
+end
+
+function this.rand_ok()
+    return m.canOpenStartMenu(false)
+end
+
+function this.reload_ok()
+    return s.get("app.GameFlowManager"):get_IsPlayableScene() and m.canOpenStartMenu(false)
+end
+
 function this.clear_cache()
     mod.map.custom_quest_list:with_dump(function()
         ---@diagnostic disable-next-line: invisible
