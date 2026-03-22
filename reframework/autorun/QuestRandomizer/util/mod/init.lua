@@ -584,6 +584,13 @@ function this.get_quest_order_param(quest_data, starting_point)
     return quest_order_param
 end
 
+---@generic T
+---@param type `T` app.GUIXXXXXX
+---@return T
+function this.get_gui_cls(type)
+    return s.get("app.GUIManager"):getGUI(e.get("app.GUIID.ID")[string.sub(type, 6)])
+end
+
 ---@param quest Quest
 ---@param start_type QuestStartType
 function this.post_quest(quest, start_type)

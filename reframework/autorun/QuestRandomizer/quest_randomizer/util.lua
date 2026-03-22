@@ -115,7 +115,9 @@ function this.do_mod_action()
 end
 
 function this.post_ok()
-    return not s.get("app.MissionManager"):get_IsActiveQuest() and this.update_ok()
+    return not s.get("app.MissionManager"):get_IsActiveQuest()
+        and this.update_ok()
+        and not util_mod.get_gui_cls("app.GUI050001")
 end
 
 function this.rand_ok()
