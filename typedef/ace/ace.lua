@@ -16,6 +16,9 @@
 ---@class ace.SaveDataManagerBase : ace.GAElement
 ---@class ace.GUIManagerBase : ace.GAElement
 ---@class ace.IGUIFlowHandle : via.clr.ManagedObject
+---@class ace.DemoMediatorBase : ace.GAElement
+---@class ace.GameFlowManagerBase : ace.GAElement
+---@class ace.FadeManagerBase : ace.GAElement
 
 ---@class ace.cGUINotifyWindowInfo : via.clr.ManagedObject
 ---@field get_Caller fun(self: ace.cGUINotifyWindowInfo): System.Object

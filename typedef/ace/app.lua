@@ -215,3 +215,18 @@
 ---@class app.cExFieldEvent_PopEnemy : app.cExFieldEventBase
 ---@field get_EnableInstantQuestTarget fun(self: app.cExFieldEvent_PopEnemy): System.Boolean
 ---@field get_IsBattlefieldEm fun(self: app.cExFieldEvent_PopEnemy): System.Boolean
+
+---@class app.DemoMediator : ace.DemoMediatorBase
+---@field get_IsBusy fun(self: app.DemoMediator): System.Boolean
+
+---@class app.GameFlowManager : ace.GameFlowManagerBase
+---@field get_GameJumper fun(self: app.GameFlowManager): app.cGameJumper
+
+---@class app.cGameJumper : via.clr.ManagedObject
+---@field _GameSceneTransition app.cGameSceneTransition
+
+---@class app.cGameSceneTransition : via.clr.ManagedObject
+---@field _Phase app.cGameSceneTransition.PHASE
+
+---@class app.FadeManager : ace.FadeManagerBase
+---@field get_IsFadingAny fun(self: app.FadeManager): System.Boolean

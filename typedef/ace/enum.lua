@@ -30,3 +30,4 @@
 ---@class app.GUI060102.OPEN_FROM : System.Enum
 ---@class app.GUI060102.OPEN_ANIMATION : System.Enum
 ---@class app.net_session_manager.SESSION_TYPE : System.Enum
+---@class app.cGameSceneTransition.PHASE : System.Enum

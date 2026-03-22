@@ -45,7 +45,7 @@ local function is_returned_quest()
 end
 
 function this.update(_)
-    if not s.get("app.GameFlowManager"):get_IsPlayableScene() or not m.canOpenStartMenu(false) then
+    if not util_randomizer.update_ok() then
         return
     end
 

@@ -1,10 +1,11 @@
 local config = require("QuestRandomizer.config.init")
 local data = require("QuestRandomizer.data.init")
-local m = require("QuestRandomizer.util.ref.methods")
+local frame_cache = require("QuestRandomizer.util.misc.frame_cache")
 local quest_base = require("QuestRandomizer.data.quest_base")
 local quest_reference = require("QuestRandomizer.quest_randomizer.quest_reference")
 local randomizer = require("QuestRandomizer.quest_randomizer.randomizer")
 local s = require("QuestRandomizer.util.ref.singletons")
+local util_game = require("QuestRandomizer.util.game.init")
 local util_mod = require("QuestRandomizer.util.mod.init")
 local util_table = require("QuestRandomizer.util.misc.table")
 
@@ -114,17 +115,21 @@ function this.do_mod_action()
 end
 
 function this.post_ok()
-    return not s.get("app.MissionManager"):get_IsActiveQuest()
-        and s.get("app.GameFlowManager"):get_IsPlayableScene()
-        and m.canOpenStartMenu(false)
+    return not s.get("app.MissionManager"):get_IsActiveQuest() and this.update_ok()
 end
 
 function this.rand_ok()
-    return m.canOpenStartMenu(false)
+    return this.update_ok()
+end
+
+function this.update_ok()
+    return s.get("app.GameFlowManager"):get_IsPlayableScene()
+        and not util_game.is_any_loading()
+        and not s.get("app.DemoMediator"):get_IsBusy()
 end
 
 function this.reload_ok()
-    return s.get("app.GameFlowManager"):get_IsPlayableScene() and m.canOpenStartMenu(false)
+    return this.update_ok()
 end
 
 function this.clear_cache()
@@ -146,5 +151,7 @@ function this.clear_cache()
         end
     end)
 end
+
+this.update_ok = frame_cache.memoize(this.update_ok)
 
 return this

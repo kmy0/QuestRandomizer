@@ -7,11 +7,15 @@ local mod = data.mod
 local this = {}
 
 function this.post(...)
-    util_randomizer.request_mod_action(mod.enum.mod_action.POST)
+    if util_randomizer.post_ok() then
+        util_randomizer.request_mod_action(mod.enum.mod_action.POST)
+    end
 end
 
 function this.randomize(...)
-    util_randomizer.request_mod_action(mod.enum.mod_action.ROLL)
+    if util_randomizer.rand_ok() then
+        util_randomizer.request_mod_action(mod.enum.mod_action.ROLL)
+    end
 end
 
 function this.retry_quest(...)

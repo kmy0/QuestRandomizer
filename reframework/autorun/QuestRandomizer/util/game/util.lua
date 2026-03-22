@@ -254,6 +254,18 @@ function this.parse_guid(guid)
     return ret:Parse(guid)
 end
 
+function this.is_any_loading()
+    local jumper = s.get("app.GameFlowManager"):get_GameJumper()
+    local fademan = s.get("app.FadeManager")
+    local scene_transition = jumper._GameSceneTransition
+
+    this.is_any_loading = function()
+        return scene_transition._Phase ~= 0 or fademan:get_IsFadingAny()
+    end
+
+    return this.is_any_loading()
+end
+
 this.get_component_any_cached = cache.memoize(this.get_component_any_cached)
 
 return this
