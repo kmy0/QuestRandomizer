@@ -70,10 +70,28 @@ function this.accept_quest_pre(args)
     config.current.mod.quest_id = data.make_quest_key(quest)
 end
 
+function this.update_50001_pre(args)
+    if mod.flag_decide then
+        local o = sdk.to_managed_object(args[2]) --[[@as app.GUI050001_AcceptList]]
+        local select_item = mod.flag_decide == mod_enum.quest_start.START_AND_PREP
+                and o._MenuItem_AcceptAndPreparing
+            or o._MenuItem_AcceptAndStart
+        local input_ctrl = o._InputCtrl
+        local fluent_link = input_ctrl._FicLink
+        local index = o:getItemIndex(select_item)
+
+        fluent_link:set_SelectedItemIndex(index)
+        o:callbackDecide(fluent_link, select_item, index)
+
+        mod.flag_decide = nil
+    end
+end
+
 this.reload_keep_quest_data = reload_hook(mod_enum.quest_reload.KEEP)
 this.reload_quest_data = reload_hook(mod_enum.quest_reload.FULL)
 this.clear_quest_data = wrapper(util_randomizer.clear_all)
 this.update = wrapper(this.update)
 this.accept_quest_pre = wrapper(this.accept_quest_pre)
+this.update_50001_pre = wrapper(this.update_50001_pre)
 
 return this

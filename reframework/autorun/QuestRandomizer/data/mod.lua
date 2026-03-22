@@ -2,6 +2,7 @@
 ---@field map ModMap
 ---@field enum ModEnum
 ---@field in_quest boolean
+---@field flag_decide QuestStartType?
 ---@field quest_reload QuestReload
 ---@field mod_action ModAction
 ---@field initialized boolean

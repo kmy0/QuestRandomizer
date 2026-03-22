@@ -3,6 +3,7 @@ local config = require("QuestRandomizer.config.init")
 local data = require("QuestRandomizer.data.init")
 local e = require("QuestRandomizer.util.game.enum")
 local m = require("QuestRandomizer.util.ref.methods")
+local mod = require("QuestRandomizer.data.mod")
 local s = require("QuestRandomizer.util.ref.singletons")
 local state = require("QuestRandomizer.gui.state")
 local util_game = require("QuestRandomizer.util.game.init")
@@ -591,12 +592,18 @@ function this.get_gui_cls(type)
     return s.get("app.GUIManager"):getGUI(e.get("app.GUIID.ID")[string.sub(type, 6)])
 end
 
+function this.is_in_lobby()
+    local sess_serv = s.get("app.NetworkManager"):get_SessionService()
+    return sess_serv:isOnline(e.get("app.net_session_manager.SESSION_TYPE").LOBBY)
+        or sess_serv:isOnline(e.get("app.net_session_manager.SESSION_TYPE").LINK)
+end
+
 ---@param quest Quest
 ---@param start_type QuestStartType
 function this.post_quest(quest, start_type)
     local quest_data = quest:get_active_quest_data()
 
-    if start_type == mod_enum.quest_start.PICK then
+    if start_type == mod_enum.quest_start.PICK or this.is_in_lobby() then
         local quest_order_param = this.get_quest_order_param(quest_data)
         local ctx = m.GUIFlowQuestCounterStart(
             quest_order_param,
@@ -620,6 +627,18 @@ function this.post_quest(quest, start_type)
             open_from,
             e.get("app.GUI060102.OPEN_ANIMATION").ANIMATION
         )
+
+        if
+            start_type == mod_enum.quest_start.START_AND_PREP
+            and quest_order_param.QuestType
+                == e.get("app.GUI050000.QUEST_TYPE").DECLARATION_QUEST
+        then
+            start_type = mod_enum.quest_start.START_AND_DEPART
+        end
+
+        if start_type ~= mod_enum.quest_start.PICK then
+            mod.flag_decide = start_type
+        end
     else
         local start_point = this.get_closest_starting_point(
             quest_data:getStage(),

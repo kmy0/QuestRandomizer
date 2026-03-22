@@ -18,6 +18,10 @@
 ---@class ace.DemoMediatorBase : ace.GAElement
 ---@class ace.GameFlowManagerBase : ace.GAElement
 ---@class ace.FadeManagerBase : ace.GAElement
+---@class ace.cGUIInputCtrl : ace.cGUIInputCtrlBase
+---@class ace.cGUIInputCtrlBase : ace.cNonCycleTypeObject
+---@class ace.cNonCycleTypeObject : ace.cLeakCheckObject
+---@class ace.cLeakCheckObject : via.clr.ManagedObject
 
 ---@class ace.GUIManagerBase : ace.GAElement
 ---@field getGUI fun(self: ace.GUIManagerBase, gui_id: app.GUIID.ID): ace.GUIBase

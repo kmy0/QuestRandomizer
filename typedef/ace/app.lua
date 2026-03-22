@@ -7,6 +7,7 @@
 ---@class app.user_data.QuestData : via.UserData
 ---@class app.cExFieldEvent_Battlefield : app.cExFieldEventBase
 ---@class app.cExFieldEvent_SpecialOfferBase : app.cExFieldEventBase
+---@class app.cGUIPartsBaseApp : ace.cGUIPartsBase
 
 ---@class app.savedata.cItemWork : ace.cSaveDataParam
 ---@field get_ItemId fun(self: app.savedata.cItemWork): app.ItemDef.ID
@@ -113,6 +114,10 @@
 
 ---@class app.NetworkManager : ace.GAElement
 ---@field get_ContextManager fun(self: app.NetworkManager): app.net_context_manager.cContextManager
+---@field get_SessionService fun(self: app.NetworkManager): app.Net_SessionService
+
+---@class app.Net_SessionService : via.clr.ManagedObject
+---@field isOnline fun(self: app.Net_SessionService, sess_type: app.net_session_manager.SESSION_TYPE): System.Boolean
 
 ---@class app.net_context_manager.cContextManager : via.clr.ManagedObject
 ---@field get_HunterId fun(self: app.net_context_manager.cContextManager): System.Guid
@@ -230,3 +235,16 @@
 
 ---@class app.FadeManager : ace.FadeManagerBase
 ---@field get_IsFadingAny fun(self: app.FadeManager): System.Boolean
+
+---@class app.GUI050001_AcceptList : app.cGUIPartsBaseApp
+---@field _MenuItem_AcceptAndPreparing via.gui.SelectItem
+---@field _MenuItem_AcceptAndStart via.gui.SelectItem
+---@field _InputCtrl ace.cGUIInputCtrl_FluentItemsControlLink
+---@field getItemIndex fun(self: app.GUI050001_AcceptList, sel: via.gui.SelectItem): System.Int32
+---@field callbackDecide fun(self: app.GUI050001_AcceptList, ctrl: via.gui.Control, sel: via.gui.SelectItem, index: System.Int32)
+
+---@class ace.cGUIInputCtrl_FluentItemsControlLink : ace.cGUIInputCtrl
+---@field _FicLink via.gui.FluentItemsControlLink
+
+---@class via.gui.FluentItemsControlLink : via.gui.Control
+---@field set_SelectedItemIndex fun(self: via.gui.FluentItemsControlLink, index: System.Int32)

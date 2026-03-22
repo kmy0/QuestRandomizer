@@ -14,6 +14,7 @@
 ---@class via.gui.Control : via.gui.TransformObject
 ---@class via.gui.TransformObject : via.gui.PlayObject
 ---@class via.gui.PlayObject : via.clr.ManagedObject
+---@class via.gui.SelectItem : via.gui.Control
 
 ---@class via.Size
 ---@field w System.Single

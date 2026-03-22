@@ -91,6 +91,7 @@ m.hook(
     "app.cQuestDirector.acceptQuest(app.cActiveQuestData, app.cQuestAcceptArg, System.Boolean, System.Boolean)",
     hook.accept_quest_pre
 )
+m.hook("app.GUI050001_AcceptList.onVisibleUpdate()", hook.update_50001_pre)
 
 re.on_draw_ui(function()
     if imgui.button(string.format("%s %s", config.name, config.commit)) and init.ok then
