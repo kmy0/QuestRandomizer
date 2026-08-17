@@ -566,12 +566,12 @@ function this.get_quest_order_param(quest_data, starting_point)
     local category = this.get_gui50000_quest_type(quest_data)
 
     local gui_quest_view = util_ref.ctor("app.cGUIQuestViewData", true)
-    gui_quest_view:add_ref()
+    gui_quest_view:add_ref_permanent()
     gui_quest_view:call(".ctor(app.cActiveQuestData)", quest_data)
     gui_quest_view:set_QuestCategory(category)
 
     local quest_order_param = util_ref.ctor("app.cGUIQuestOrderParam", true)
-    quest_order_param:add_ref()
+    quest_order_param:add_ref_permanent()
     quest_order_param.QuestType = category
     quest_order_param.ActiveQuestData = quest_data
     quest_order_param.QuestViewData = gui_quest_view
@@ -602,6 +602,7 @@ end
 ---@param start_type QuestStartType
 function this.post_quest(quest, start_type)
     local quest_data = quest:get_active_quest_data()
+    quest_data:add_ref_permanent()
 
     if start_type == mod_enum.quest_start.PICK or this.is_in_lobby() then
         local quest_order_param = this.get_quest_order_param(quest_data)
@@ -644,6 +645,7 @@ function this.post_quest(quest, start_type)
             quest_data:getStage(),
             quest_data:getTargetEmSetAreaNo()
         )
+        start_point:add_ref_permanent()
         local quest_order_param = this.get_quest_order_param(quest_data, start_point)
         ---@type System.Guid
         local host_id
@@ -664,6 +666,7 @@ function this.post_quest(quest, start_type)
         end
 
         local quest_arg = util_ref.ctor("app.cQuestAcceptArg", true)
+        quest_arg:add_ref_permanent()
         local accepted_time = m.getUTCTime()
         quest_arg:call(
             ".ctor(app.cStartPointInfo, System.Guid, System.Int64)",
