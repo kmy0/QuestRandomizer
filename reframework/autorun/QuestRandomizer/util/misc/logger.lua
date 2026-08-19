@@ -152,6 +152,19 @@ function this:iter(n)
 end
 
 ---@return string?
+function this:get_last_error()
+    if util_table.empty(self.error_cache) then
+        return
+    end
+
+    local errors = util_table.sort(util_table.keys(self.error_cache), function(a, b)
+        return self.error_cache[a] < self.error_cache[b]
+    end)
+
+    return errors[#errors]
+end
+
+---@return string?
 function this:format_errors()
     if util_table.empty(self.error_cache) then
         return

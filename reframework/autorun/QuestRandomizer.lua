@@ -3,13 +3,14 @@ local config = require("QuestRandomizer.config.init")
 local config_menu = require("QuestRandomizer.gui.init")
 local data = require("QuestRandomizer.data.init")
 local hook = require("QuestRandomizer.quest_randomizer.hook")
+local init_chain = require("QuestRandomizer.config.init_chain")
 local util = require("QuestRandomizer.util.init")
 local util_randomizer = require("QuestRandomizer.quest_randomizer.util")
 local logger = util.misc.logger.g
 ---@class MethodUtil
 local m = require("QuestRandomizer.util.ref.methods")
 
-local init = util.misc.init_chain:new(
+local init = init_chain:new(
     "MAIN",
     config.init,
     data.init,
@@ -112,6 +113,10 @@ re.on_draw_ui(function()
     else
         imgui.same_line()
         imgui.text_colored("Init failed!", mod.map.colors.bad)
+        local errors = logger:get_last_error()
+        if errors then
+            util.imgui.tooltip_exclamation(errors)
+        end
     end
 end)
 
