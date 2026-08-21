@@ -89,6 +89,11 @@ m.hook(
     hook.reload_keep_quest_data
 )
 m.hook(
+    "app.QuestUtil.createKeepQuest(app.cExSpOfferInfo_forView)",
+    nil,
+    hook.reload_keep_quest_data
+)
+m.hook(
     "app.cQuestDirector.acceptQuest(app.cActiveQuestData, app.cQuestAcceptArg, System.Boolean, System.Boolean)",
     hook.accept_quest_pre
 )
